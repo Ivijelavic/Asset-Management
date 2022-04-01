@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--
+https://go.microsoft.com/fwlink/?LinkID=208121. 
+-->
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <_PublishTargetUrl>\\192.168.5.205\i4nextApps\asset</_PublishTargetUrl>
+    <History>True|2021-05-18T09:19:07.9433546Z;True|2021-05-18T11:01:57.7618696+02:00;True|2021-05-18T10:47:24.4078741+02:00;True|2021-05-18T10:44:47.0273265+02:00;True|2021-05-17T12:13:10.6890399+02:00;True|2021-05-17T12:08:08.8722569+02:00;True|2021-05-14T14:59:20.6015157+02:00;</History>
+  </PropertyGroup>
+</Project>
