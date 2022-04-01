@@ -1,0 +1,123 @@
+﻿@model MVCappCoreWeb.Models.DokumentIZ
+@using Microsoft.AspNetCore.Identity
+@using MVCappCoreWeb.Areas.Identity.Data;
+@using Microsoft.AspNetCore.Http;
+
+@inject SignInManager<WebUser> SignInManager
+@inject UserManager<WebUser> UserManager
+@inject RoleManager<IdentityRole> RoleManager
+<div id="divporuka" class="alert "></div>
+    <br />
+    <div id="user" class="container-fluid">
+        <div class="row justify-content-center">
+            <div class="col-md-6 col-md-offset-3">
+                <div class="form-group">
+                    <div class="btn-group  d-flex">
+                        @if (SignInManager.IsSignedIn(User))
+                        {
+                        @if (User.IsInRole("Ticketing"))
+                            {
+                        <a class="btn alert-dark text-secondary text-center font-weight-bold" style="cursor: pointer;" asp-controller="Ticket" asp-action="Statusi">
+                            Korisnik: @UserManager.GetUserName(User) Status/lista prijava
+                        </a>
+                            }
+                        }
+                    </div>
+                </div>
+                <div class="card login-logout-tab">
+                    <div class="card-header gap-3">
+
+                        <label for="idserja">Unesite serijski broj  uređaja:</label>
+                        <div class="input-group">
+                            <input name="NameOrSerial" id="NameOrSerial" class="form-control w-25">
+                            <span class="input-group-btn">
+                                <button class="btn btn-info" onclick="CheckSerialNum()">Check</button>
+                            </span>
+                        </div>
+                        <form>
+                            <p id="poruka" class="alert-info"></p>
+                            <input type="hidden" id="SerialHidden" name="SerialHidden">
+                            <div class="form-group">
+                                <label for="Ostecenje">Vrsta oštećenja</label>
+                                <select multiple class="form-control" id="selectMultiple" name="selectMultiple">
+                                    <option value="Fizičko oštećenje">1. Fizičko oštećenje</option>
+                                    <option value="Uređaj se ne može upaliti">2. Uređaj se ne može upaliti</option>
+                                    <option value="Nedostupni određeni podatci">3. Nedostupni određeni podatci</option>
+                                    <option value="Ostalo">4. Ostalo</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="Napomena">Napomena</label>
+                                <textarea class="form-control" id="Napomena" rows="5"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <div class="btn-group  d-flex">
+                                    <a class="btn  btn-primary btn-lg m-1" style="cursor:pointer;" onclick="SendTicket()">Predaj obavijest</a>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        function CheckSerialNum() {
+            var strValue = document.getElementById('NameOrSerial').value;
+            if (strValue.length == 0) {
+                document.getElementById('poruka').innerHTML = "";
+                document.getElementById('NameOrSerial').value = "";
+            }
+            else {
+                $.ajax({
+                    url: '/Ticket/CheckSerial/',
+                    type: 'GET',
+                    contentType: 'application/html',
+                    data: { 'strValue': strValue },
+                    success: function (data) {
+                        document.getElementById('poruka').innerHTML = data;
+                        document.getElementById('SerialHidden').value = strValue;
+                    },
+                    error: function (e) { }
+                });
+            }
+            document.getElementById('NameOrSerial').value = "";
+        }
+        /******************************************/
+        function SendTicket() {
+            var strValue = document.getElementById('SerialHidden').value;
+            var napomena = document.getElementById('Napomena').value;
+            var element = document.getElementById('selectMultiple');
+
+            var selectedItems = Array.from(element.selectedOptions)
+                .map(option => option.value);
+            if (strValue.length == 0) { strValue = null; }
+            var bool = selectedItems.length == 0 && napomena.length == 0;
+           // alert(bool);
+            if ((selectedItems.length == 0) || (napomena.length == 0)) {
+                //document.getElementById('poruka').innerHTML = "";
+                //document.getElementById('NameOrSerial').value = "";
+                alert("Odaberite vrstu kvara i ukratko ga opišite");
+            }
+            else {
+                $.ajax({
+                    url: '/Ticket/SendTicket/',
+                    type: 'GET',
+                    contentType: 'application/html',
+                    data: { 'serial': strValue, 'napomena': napomena, 'selectedItems': selectedItems.toString() },
+                    success: function (data) {
+                        window.location.href = '/Ticket/Statusi/';
+                       // Start();
+                    },
+                    error: function (e) { }
+                });
+            }
+            //document.getElementById('NameOrSerial').value = "";
+        }
+        /**************************************************************************************/
+     
+      
+    </script>
+
+
+    <script src="https://popper.js.org"></script>

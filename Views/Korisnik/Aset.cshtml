@@ -1,0 +1,67 @@
+﻿@model List<MVCappCoreWeb.Models.Aset>
+
+<table class="table table-striped" id="roleTable">
+    @{
+        int i = 0;
+    }
+    <thead>
+        <tr>
+            <th>Rbr.</th>
+            <th>Opis</th>
+            <th>Serial</th>
+            <th>Osoba</th>
+            <th>Količina</th>
+            <th>Detail</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            i = i + 1;
+
+            <tr>
+                <td style="width:10%;">@i.</td>
+                <td>
+                    @item.Opis
+                </td>
+                <td>
+                    @item.Serial
+                </td>
+                <td>
+                    @item.ZaduzenaOsoba
+                </td>
+                <td>
+                    @item.PreostalaKolicina
+                </td>
+                <td>
+                    <a href="@Url.Action("SerialDetail", "Korisnik", new { id = @item.idDokumentVeza, serial = @item.Serial })">Edit</a>
+                </td>
+            </tr>
+       
+                }
+<tbody>
+</table>
+
+<style>
+    h1,
+    h3 {
+        text-align: center;
+    }
+
+    table {
+        border-spacing: 0px;
+        table-layout: fixed;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    th {
+        color: black;
+        border: 1px solid black;
+    }
+
+    td {
+        border: 1px solid black;
+        word-wrap: break-word;
+    }
+</style>

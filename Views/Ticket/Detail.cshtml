@@ -1,0 +1,84 @@
+﻿@model MVCappCoreWeb.Models.Ticket
+<br />
+<table class="table table-striped" id="roleTable">
+    <tr>
+        <th width="30%">
+            Broj/Godina:
+        </th>
+
+
+        <td class="float-left">
+            @(Model.Broj +"/"+ Model.Godina)
+        </td>
+    </tr>
+    <tr>
+        <th width="30%">
+            Klijent:
+        </th>
+
+
+        <td class="float-left">
+            @Model.Klijent
+        </td>
+    </tr>
+    <tr>
+        <th width="30%">
+            Datum:
+        </th>
+
+
+        <td class="float-left">
+            @Model.DatumTicket.ToString("dd.MM.yyyy")
+        </td>
+    </tr>
+    <tr>
+        <th width="30%">
+            Serijski broj artikla:
+        </th>
+
+
+        <td class="float-left">
+            @Model.Serial
+        </td>
+    </tr>
+    <tr>
+        <th width="30%">
+            Naziv artikla:
+        </th>
+
+
+        <td class="float-left">
+            @Model.NazivSeriala
+        </td>
+    </tr>
+    <tr>
+        <th width="30%">
+            Kreirao:
+        </th>
+
+
+        <td class="float-left">
+            @Model.CreateBy
+        </td>
+    </tr>
+    <tr>
+        <th width="30%">
+            Sadržaj:
+        </th>
+
+
+        <td class="float-left">
+            @Model.DokumentNapomena1
+        </td>
+    </tr>
+    <tr>
+        <th width="30%">
+            Stastus:
+        </th>
+
+
+        <td class="float-left">
+            @Model.DokumentNapomena2
+        </td>
+    </tr>
+</table>

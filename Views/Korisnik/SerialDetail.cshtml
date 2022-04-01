@@ -1,0 +1,113 @@
+﻿@model List<MVCappCoreWeb.Models.Aset>
+
+
+<table class="table table-striped" id="roleTable">
+    @foreach (var item in Model)
+    {
+
+
+        <tr>
+            <th width="30%">
+                Serijski broj:
+            </th>
+
+
+            <td class="float-left">
+                @item.Serial
+            </td>
+        </tr>
+        <tr>
+            <th>
+                Opis:
+            </th>
+
+
+            <td>
+                @item.Opis
+            </td>
+        </tr>
+        <tr>
+            <th>
+                Br. ugovora:
+            </th>
+
+
+            <td>
+                @item.idDokumentVeza
+        </tr>
+        <tr>
+            <th>
+                Mjesto:
+            </th>
+
+
+            <td>
+                @item.Mjesto
+            </td>
+        </tr>
+        <tr>
+            <th>
+                Adresa:
+            </th>
+
+
+            <td>
+                @item.UlicaiBr
+            </td>
+        </tr>
+        <tr>
+            <th>
+                Lokacija I:
+            </th>
+
+
+            <td>
+                @item.Soba
+            </td>
+        </tr>
+        <tr>
+            <th>
+                Lokacija II:
+            </th>
+
+
+            <td>
+                @item.Kat
+            </td>
+        </tr>
+        <tr>
+            <th>
+                Osoba:
+            </th>
+
+
+            <td>
+                @item.ZaduzenaOsoba
+            </td>
+        </tr>
+        <tr>
+            <th>
+                Napomena:
+            </th>
+
+
+            <td>
+                @item.Napomena
+            </td>
+        </tr>
+        <tr>
+            <th>
+                Količina:
+            </th>
+
+
+            <td>
+                @item.PreostalaKolicina
+            </td>
+        </tr>
+
+
+
+
+    }
+</table>

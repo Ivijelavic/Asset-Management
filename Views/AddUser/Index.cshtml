@@ -1,0 +1,78 @@
+﻿@model MVCappCoreWeb.Areas.Identity.Pages.Account.RegisterModel
+@using Microsoft.AspNetCore.Identity
+@using MVCappCoreWeb.Areas.Identity.Data;
+@using Microsoft.AspNetCore.Http;
+
+@inject SignInManager<WebUser> SignInManager
+@inject UserManager<WebUser> UserManager
+@inject RoleManager<IdentityRole> RoleManager
+
+@if (SignInManager.IsSignedIn(User))
+{
+    @if (User.IsInRole("Admin"))
+    {
+        <br />
+        <div class="card">
+            <div id="viewAll" class="card-body table-responsive alert-info">
+
+                <p>Administartor:    @User.Identity.Name</p>
+                @ViewBag.Tvrtka
+
+            </div>
+
+
+
+        </div>
+
+        <br />
+        <div class="card">
+            <a href="../Identity/Account/Register" class="btn btn-primary float-left table-responsive-lg">Dodajte novog korisnika</a>
+        </div>
+            <br />
+
+            @if (ViewBag.CategoriesList != null)
+            {
+                @Html.DropDownList("Type", (IEnumerable<SelectListItem>)ViewBag.CategoriesList, "----Odaberite Korisnika----",
+                       new { id = "ddl1", onchange = "SelectedIndexChanged()", @class = "form-control " })
+            }
+
+            }
+            else
+            {
+            <h1>Nedozvoljen pristup</h1>
+            }
+            }
+            else
+            {
+            <h1>Nije log</h1>
+            }
+            <div id="divPartialViewContainer">
+
+            </div>
+
+            <script>
+                function SelectedIndexChanged() {
+                    var idRola = $("#ddl1").val();
+                    if (idRola.length == 0) {
+                        document.getElementById('divPartialViewContainer').style.visibility = "hidden";
+                    }
+                    else {
+                        $.ajax({
+                            url: '/AddUser/getClaims/',
+                            type: 'GET',
+                            contentType: 'application/html',
+                            data: { 'id': idRola },
+                            success: function (data) {
+                                if (data != null) {
+                                    $('#divPartialViewContainer').html(data);
+                                    document.getElementById('divPartialViewContainer').style.visibility = 'visible';
+                                }
+                                else {
+                                    document.getElementById('divPartialViewContainer').style.visibility = "hidden";
+                                }
+                            },
+                            error: function (e) { }
+                        });
+                    }
+                }
+            </script>

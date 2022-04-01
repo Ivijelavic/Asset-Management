@@ -1,0 +1,41 @@
+﻿@model List<MVCappCoreWeb.Models.Ugovori>
+@using MVCappCoreWeb.Constants
+
+
+<table class="table table-striped ">
+    @{
+        int i = 0;
+    }
+    <thead>
+        <tr>
+            <th>Rbr.</th>
+            <th>Naziv</th>
+            <th>Broj</th>
+      
+
+            <th>Datum</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+
+            i = i + 1;
+
+            <tr>
+                <td>@i.</td>
+                <td>
+                    <a asp-controller="korisnik" asp-action="FaktureAset"
+                       asp-route-id="@item.IDUgovora">
+                        @item.NazivUgovora
+                    </a>
+                </td>
+                <td>@item.BrojUgovora</td>
+                <td>@item.DatumUgovora.ToString("dd.MM.yyyy")</td>
+
+            </tr>
+
+        }
+    </tbody>
+</table>
+

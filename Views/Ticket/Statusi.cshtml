@@ -1,0 +1,37 @@
+﻿@model List<MVCappCoreWeb.Models.ShortDokumentIZ>
+
+<table class="table table-striped ">
+    @{
+        int i = 0;
+    }
+    <thead>
+        <tr>
+            <th>Broj/God.</th>
+            <th>Datum</th>
+            <th>Status</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+        <tr>
+
+            <td>
+                <a asp-controller="Ticket" asp-action="Detail"
+                   asp-route-id="@item._IDDokument">
+
+                    @(item._Broj + "/" + item._Godina)
+                </a>
+            </td>
+            <td>@item._DatumDokumenta.ToString("dd.MM.yyyy")</td>
+            <td>@item._DokumentNapomena2</td>
+            </tr><tr>
+                     <td colspan="3">
+                         @item._StavkaOpis
+                     </td>
+
+            </tr>
+
+        }
+    </tbody>
+</table>

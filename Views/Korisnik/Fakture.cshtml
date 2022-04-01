@@ -1,0 +1,41 @@
+﻿@model List<MVCappCoreWeb.Models.Faktura>
+
+
+
+<table class="table table-striped">
+    @{
+    int i = 0;
+    var bgcolor="";
+    }
+    <thead>
+        <tr>
+            <th>Rbr.</th>
+            <th>Broj</th>
+            <th>Datum</th>
+            <th>Tip</th>
+            <th>Iznos</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+
+            i = i + 1;
+
+        <tr>
+            <td>@i.</td>
+            <td>
+                <a asp-controller="korisnik" asp-action="FaktureDetail"
+                   asp-route-id="@item.IDFakture">
+                    @item.Broj
+                </a>
+            </td>
+            <td>@item.DatumDS.ToString("dd.MM.yyyy")</td>
+            <td>@item.TipFakture</td>
+            <td>@(item.VrijednostFaktureKN + item.PDVIznos)</td>
+        </tr>
+
+        }
+    </tbody>
+</table>
+

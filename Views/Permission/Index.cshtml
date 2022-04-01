@@ -1,0 +1,63 @@
+﻿@model MVCappCoreWeb.Models.PermissionViewModel
+
+@if (ViewBag.FeedBack != null)
+{
+<div id="divporuka" class="alert alert-success @ViewBag.FeedBack">
+
+    @ViewBag.FeedBack
+</div>
+}
+<div class="alert alert-info text-dark font-weight-bold @ViewBag.FeedBack">
+    @ViewBag.Message
+</div>
+<div class="card">
+
+    <div id="viewAll" class="card-body table-responsive">
+        <form asp-controller="permission" method="post" asp-action="Update" class="d-inline">
+            <input asp-for="@Model.RoleId" type="hidden" />
+            <table class="table table-striped" id="permissionTable">
+                <thead>
+                    <tr>
+                        <th>
+                            Permission
+                        </th>
+                        <th>
+                            Status
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    @for (int i = 0; i < Model.RoleClaims.Count(); i++)
+                        {
+                    <tr>
+                        <td>
+                            <input asp-for="@Model.RoleClaims[i].Value" type="hidden" />
+                            @Model.RoleClaims[i].Value
+                        </td>
+                        <td>
+                            <div class="form-check m-1">
+                                <input asp-for="@Model.RoleClaims[i].Selected" class="form-check-input" />
+                            </div>
+                        </td>
+                    </tr>
+}
+                </tbody>
+            </table>
+
+            <div class="col-sm-12" style="padding: 20px 20px 0px 0px">
+                <button type="submit" id="save" class="btn bg-primary">
+                    <i class="fa fa-check"></i>
+                    Snimi
+                </button>
+            </div>
+        </form>
+    </div>
+
+</div>
+
+<script>
+    setTimeout(function () {
+        $('#divporuka').fadeOut('fast');
+    }, 4000);
+</script>

@@ -1,0 +1,150 @@
+﻿@using MVCappCoreWeb.Models
+@using Microsoft.AspNetCore.Http
+@inject IHttpContextAccessor HttpContextAccessor
+@using System.Security.Claims;
+@if (Context.User.Identity.IsAuthenticated)
+{
+    var oib = ((ClaimsIdentity)User.Identity).FindFirst("oib").Value;
+<input type="hidden" id="oib" value="@oib">
+}
+@if (this.User.IsInRole("Ticketing"))
+{
+<p>Korisnik</p>
+}
+<div id="output"> </div>
+<script>
+    gettAsyncPOst();
+  async  function gettAsyncPOst() {
+         /*
+         let url = 'https://192.168.5.205:8082/api/klijenti/';
+         let username = 'APIKey';
+         let password = '12345';
+         var authUrl = location.origin + '/secured-path/';
+         var http = new XMLHttpRequest();
+         http.open("get", url, false);
+         http.send("");
+         if (http.status == 200) {
+             //location.href = authUrl;
+         } else {
+             alert("⚠️ Authentication failed.", false);http://192.168.5.205:8082/Help/Api/GET-api-Klijenti
+         }
+         */
+         //var client = new XMLHttpRequest();
+        // client.onload = handler;
+        //client.open("GET", "http://http://192.168.5.205:8082/api/klijenti", false, 'APIKey', '12345');
+        // client.send();
+        //if (client.status == 200) {
+        //    console.log(client.responseText);
+        //} else {
+        //    console.log(client.status);
+        // }
+
+      //let headers = new HttpHeaders();
+      //headers = headers.append("Authorization", "Basic " + btoa("APIKey:12345"));
+      //headers = headers.append("Content-Type", "application/x-www-form-urlencoded");
+      let url = 'http://192.168.5.205:8082/api/klijenti';
+      //fetch(url, {
+      //    method: 'GET',
+      //    headers: {
+      //        Accept: 'application/json',
+
+
+      //    }
+      //}
+      //);
+
+      //fetch(url, {
+      //    method: "GET",
+      //   // body: JSON.stringify(data),
+      //    headers: {
+      //        "Content-Type": "application/json",
+      //        "mode" : 'cors'
+      //    },
+      //    credentials: "same-origin"
+      //}).then(function (response) {
+      //    response.status     //=> number 100–599
+      //    response.statusText //=> String
+      //    response.headers    //=> Headers
+      //    response.url        //=> String
+
+      //    return response.text()
+      //}, function (error) {
+      //    error.message //=> String
+      //})
+        //fetch(URL, {
+        //    mode: 'cors',
+        //    headers: {
+        //        'Access-Control-Allow-Origin': '*'
+        //    }
+        //})
+
+
+        //fetch(url, {
+        //    method: 'get',
+        //    headers: new Headers({
+        //        'Authorization': 'Basic ' + btoa('APIKey:12345'),
+        //        'Content-Type': 'application/x-www-form-urlencoded',
+        //        "mode": 'cors'
+        //    }),
+        //});
+
+      var header = { "Content-Type": "multipart/form-data", 'Origin': '*', 'Access-Control-Request-Method': 'GET', 'Access-Control-Allow-Headers': 'X-Requested-With'};
+      var options = { method: 'GET', credentials: "same-origin", headers: header };
+       // const response = await fetch(url,options);
+      const response = await fetch(url);
+    //    let username = 'APIKey';
+    //    let password = '12345';
+    //    let paramVar = `${username}:${password}`
+    //    const response = await fetch('https://192.168.5.205:8082/api/klijenti/');
+
+        console.log(response);
+        //const posts = await JSON.stringify(response.posts);
+        //const data = await response.json();
+        //data.forEach(obj => {
+
+
+
+        //    output += `<div class="card card-body mb-3">
+        //        <p>${obj.id}</p>
+        //        <h3>${obj.title}</h3>
+        //        <p>${obj.body}</p>
+        //        <p>${obj.userId}</p>
+        //        </div>`
+
+
+
+
+        //});
+        //document.getElementById('output').innerHTML = output;
+
+    }
+    /*
+    function getPost() {
+        let username = 'APIKey';
+        let password = '12345';
+        let url = `http://192.168.5.205:8082/api/klijenti/${username}/${password}`
+        let authString = `${username}:${password}`
+        let authStr = encodeURIComponent(authString, 'ISO-8859-1');
+        let headers = new Headers();
+
+        headers: new Headers({ 'Authorization':'Basic ' + btoa(authStr)},{'Content-Type':'application/json'})
+        
+        fetch(url, { method: 'GET', headers: headers })
+            .then((res) => res.json())
+            .then((data) => {
+                let output = '<h2>Users</h2>';
+                data.forEach(function (post) {
+                    output += `<div class="card card-body mb-3">
+                            <h3>${post.title}</h3>
+                            <p>${post.body}</p>
+                            </div>`
+                });
+                document.getElementById('output').innerHTML = output;
+            })
+    }*/
+</script>
+
+ @*nomnom@1.8.1: Package no longer supported. Contact support@npmjs.com for more info.
+C:\Users\ijelavic\AppData\Roaming\npm\local-ssl-proxy -> C:\Users\ijelavic\AppData\Roaming\npm\node_modules\local-ssl-proxy\bin\local-ssl-proxy
++ local-ssl-proxy@1.3.0
+added 18 packages from 9 contributors in 4.579s*@

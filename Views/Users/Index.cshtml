@@ -1,0 +1,61 @@
+﻿@using MVCappCoreWeb.Areas.Identity.Data;
+@model IEnumerable<WebUser>
+@if (User.IsInRole("Admin"))
+{
+
+<h1>Popis korisnika</h1>
+<br />
+<table class="table table-striped" id="userTable">
+    <thead>
+        <tr>
+            <th>
+                Ime
+            </th>
+            <th>
+                Email
+            </th>
+            <th style="width:10%">
+                Uloge
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var user in
+     Model)
+        {
+<tr>
+    <td>
+        <div class="row">
+            <div class="col-sm">
+                <a>
+                    @user.LastName,@user.FirstName
+                </a>
+                <br>
+
+            </div>
+        </div>
+    </td>
+    <td>
+        <a>
+            @user.Email
+        </a>
+    </td>
+    <td>
+        <div class="btn-group">
+            
+
+                <div class="d-inline">
+                    <a style='margin-right:50px' asp-controller="userroles" asp-action="Index" asp-route-userId="@user.Id" class="btn btn-primary btn-lg active">
+                        <i class="fas fa-wrench"></i> Uredi 
+                    </a>
+                </div>
+
+            </div>
+        
+    </td>
+</tr>
+        }
+    </tbody>
+</table>
+
+}

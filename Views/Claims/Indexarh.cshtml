@@ -1,0 +1,63 @@
+﻿@model IEnumerable<System.Security.Claims.Claim>
+<h1 class="bg-light text-white">@ViewBag.Poruka</h1>
+<a asp-action="Create" class="btn btn-secondary btn-group-lg btn-block">Create a Claims</a>
+<div class="table-responsive text-wrap">
+    <table>
+        <tr>
+            <th class="text-wrap">Briši</th>
+            <th class="text-wrap">Korisnik</th>
+            <th class="text-wrap">Izdavatelj</th>
+            <th class="text-wrap">Tip</th>
+            <th class="text-wrap">Vrijednost</th>
+
+        </tr>
+
+        @foreach (var claim in Model.OrderBy(x => x.Type))
+        {
+            <tr>
+                <td>
+                    <form asp-action="Delete" method="post">
+                        <input type="hidden" name="claimValues" value="@claim.Type;@claim.Value;@claim.Issuer" />
+                        <button type="submit" class="btn btn-sm btn-primary" style='width:100%; height:100%;margin-top:2rem auto;'>
+                            Delete
+                        </button>
+                    </form>
+                </td>
+                <td class="text-wrap">@claim.Subject.Name</td>
+                <td class="text-wrap">@claim.Issuer</td>
+                <td class="text-wrap">@claim.Type</td>
+                <td class="text-wrap">@claim.Value</td>
+
+            </tr>
+        }
+    </table>
+</div>
+<style>
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        border: 1px solid black;
+        table-layout: fixed;
+        text-align:center;
+    }
+
+    th {
+        text-align: left;
+        border-bottom: 1pt solid #4C4C4C;
+        border-right: 1pt solid #4C4C4C;
+        padding: 8px;
+        width: 20%;
+        text-align: center;
+        word-wrap: break-word;
+    }
+
+    td {
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        width: 100%;
+        border: 1px solid #000000;
+        word-wrap: break-word;
+        text-align:left;
+    }
+</style>

@@ -1,0 +1,127 @@
+﻿@model List<MVCappCoreWeb.Models.Faktura>
+@using Microsoft.AspNetCore.Identity
+@using MVCappCoreWeb.Areas.Identity.Data;
+@using Microsoft.AspNetCore.Http;
+
+@inject SignInManager<WebUser> SignInManager
+@inject UserManager<WebUser> UserManager
+@inject RoleManager<IdentityRole> RoleManager
+
+
+<table class="table table-striped" id="roleTable">
+    <tr>
+        <td colspan="2">
+
+            <div class="btn-group  d-flex">
+                @if (SignInManager.IsSignedIn(User))
+                {
+                    @if (User.IsInRole("KorisnikFakture"))
+                    {
+                        <a class="btn alert-dark text-secondary " >Dokument(PDF)</a>
+                    }
+
+                    @if (User.IsInRole("KorisnikAsset"))
+                    {
+                        <a href="#!" class="btn btn-primary" id="aset">IOS</a>
+                    }
+                }
+            </div>
+        </td>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+
+
+        <tr>
+            <th width="30%">
+                Broj/Godina:
+            </th>
+
+
+            <td class="float-left">
+                @item.Broj
+            </td>
+        </tr>
+        <tr>
+            <th>
+                Datum dospijeća:
+            </th>
+
+
+            <td>
+                @item.DatumDS.ToString("dd.MM.yyyy")
+            </td>
+        </tr>
+        <tr>
+            <th>
+                Suma stavki:
+            </th>
+
+
+            <td>
+                @item.SumaStavki.ToString("N2")
+        </tr>
+        <tr>
+            <th>
+                Tip Fakture:
+            </th>
+
+
+            <td>
+                @item.TipFakture
+            </td>
+        </tr>
+        <tr>
+            <th>
+                Vrsta Fakture:
+            </th>
+
+
+            <td>
+                @item.VrstaFakture
+            </td>
+        </tr>
+        <tr>
+            <th>
+                Vrijednost Fakture(HRK):
+            </th>
+
+
+            <td>
+                @(item.VrijednostFaktureKN + item.PDVIznos).ToString("N2")
+            </td>
+        </tr>
+        <tr>
+            <th>
+                PDV:
+            </th>
+
+
+            <td>
+                @item.PDVIznos.ToString("N2")
+            </td>
+        </tr>
+        <tr>
+            <th>
+                PLaćeni iznos:
+            </th>
+
+
+            <td>
+                @item.IznPLaceno.ToString("N2")
+            </td>
+        </tr>
+        
+        
+        
+        
+        
+
+    }
+</table>
+<style>
+    .navbar {
+        width: 100%;
+    }
+</style>

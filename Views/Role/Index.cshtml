@@ -1,0 +1,47 @@
+﻿@using Microsoft.AspNetCore.Identity;
+@model IEnumerable<IdentityRole>
+
+<h1>Uloge</h1>
+<br />
+<form method="post" asp-action="Create" asp-controller="role" >
+    <div class="input-group">
+        <input name="roleName" class="form-control w-25">
+        <span class="input-group-btn">
+            <button class="btn btn-info">Nova uloga</button>
+        </span>
+    </div>
+</form>
+<table class="table table-striped" id="roleTable">
+    <thead>
+        <tr>
+            <th>
+                Naziv
+            </th>
+
+
+            <th style="width:10%">
+                Actions
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+
+        @foreach (var role in Model)
+        {
+<tr>
+    <td>
+        @role.Name
+    </td>
+    <td class="text-right">
+                @if (role.Name != "SuperAdmin")
+                {
+
+<a style='margin-right:16px' asp-controller="Permission" asp-action="Index" asp-route-roleId="@role.Id" class="btn alert-info">
+    <i class="fas fa-wrench"></i> Ovlasti
+</a>}
+
+    </td>
+</tr>          
+        }
+    </tbody>
+</table>

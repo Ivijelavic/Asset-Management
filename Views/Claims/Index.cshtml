@@ -1,0 +1,82 @@
+﻿@if (TempData["UserId"] != null)
+{
+<input type="text" id="tempdata" class="invisible"
+       value="@TempData["UserId"]" />
+}
+@if (ViewBag.FeedBack != null)
+{
+<div id="divporuka" class="alert alert-success @ViewBag.FeedBack">
+
+    @ViewBag.FeedBack
+</div>}
+
+<div class="alert alert-info text-dark font-weight-bold">
+    @ViewBag.Message
+</div>
+@Html.DropDownList("Type", (IEnumerable<SelectListItem>)ViewBag.CategoriesList,"----Odaberite Ulogu----",
+    new { id = "ddl1", onchange = "SelectedIndexChanged()", @class = "form-control " })
+<div id="divPartialViewContainer">
+    <input type="text" id="tempdatapartial" class="invisible" />           
+    }
+</div>
+<script>
+    function SelectedIndexChanged() {
+        //alert('idRola');
+        var idRola = $("#ddl1").val();
+       // document.getElementById("tempdatapartial").innerHTML = idRola;
+        var idUser = document.getElementById("tempdata").value;
+        //alert(idUser);
+        if (idRola.length == 0) {
+            document.getElementById('divPartialViewContainer').style.visibility = "hidden";
+        }
+        else {
+            $.ajax({  
+                url: '/Claims/edit/',
+                //  type: 'POST',
+                contentType: 'application/html',
+                data: { 'idUser': idUser, 'idRola': idRola },
+                success: function (data) {
+                    if (data != null) {
+                        $('#divPartialViewContainer').html(data);
+                        document.getElementById('divPartialViewContainer').style.visibility = 'visible';
+                        document.getElementById("tempdatapartial").innerHTML = idUser;
+                    }
+                    else {
+                        document.getElementById('divPartialViewContainer').style.visibility = "hidden";
+                    }
+                },
+                error: function (e) { }
+            });
+            //document.getElementById("tempdatapartial").innerHTML = "idRola";
+        }
+        /******************************************************************/
+        //alert(value);
+        //$.ajax({
+        //    url: '/Claims/edit/',
+        //    data: { 'idUser': idUser, 'idRola': idRola },
+        //    type: 'POST',
+        //    dataType: 'json',
+        //    success: function (data) {
+        //        $('#divPartialViewContainer').html(data);
+        //        //alert(data);
+        //    },
+        //    error: function (e) { }
+        //});
+        /******************************************************************************/
+        //$.ajax({
+        //    url: '/Claims/Edit/',
+        //    data: { 'idRola': idRola, 'idUser': idUser },
+        //    dataType: "text",
+        //    success: function (data) {
+        //        // $('#divPartialViewContainer').html(content).inne;
+        //       // alert(data);
+        //    },
+        //    error: function (e) { }
+        //});
+
+    }
+    /**************************************************************************************/
+    setTimeout(function () {
+        $('#divporuka').fadeOut('fast');
+    }, 4000);
+</script>

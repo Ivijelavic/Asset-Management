@@ -1,0 +1,43 @@
+﻿@model IEnumerable<System.Security.Claims.Claim>
+
+<div class="alert alert-info text-dark font-weight-bold">
+    @ViewBag.Message
+</div>
+
+<table class="table table-sm" id="userTable">
+    <thead>
+        <tr>
+            <th>
+                Izdavatelj
+            </th>
+
+
+            <th style="width:10%">
+                Tip
+            </th>
+
+            <th style="width:10%">
+                Vrijednost
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+
+        @foreach (var claim in Model.OrderBy(x => x.Type))
+        {
+        <tr>
+            <td>
+                @claim.Issuer @claim.Subject.Name
+            </td>
+
+
+            <td>
+                @claim.Type
+            </td>
+            <td>
+                @claim.Value
+            </td>
+        </tr>
+        }
+    </tbody>
+</table>

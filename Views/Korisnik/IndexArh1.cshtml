@@ -1,0 +1,79 @@
+﻿@model List<MVCappCoreWeb.Models.Ugovori>
+
+@{
+    int i = 0;
+}
+@ViewBag.Ugovori
+<table class="table table-striped ">
+    <thead>
+        <tr>
+            <th scope="col">Rbr.</th>
+            <th scope="col">Edit</th>
+            <th scope="col">Naziv</th>
+            <th scope="col">Broj</th>
+            <th scope="col">Status</th>
+            <th scope="col">ID Ugovora</th>
+            <th scope="col">Datum</th>
+            <th scope="col">IznosUgovoraHRK</th>
+            <th scope="col">IznosUgovoraVAL</th>
+            <th scope="col">TecajUgovora</th>
+            <th scope="col">VremPeriodMj</th>
+            <th scope="col">Ucesce</th>
+            <th scope="col">Akontacija</th>
+            <th scope="col">Jamcevina</th>
+            <th scope="col">FrontUpAdminFee</th>
+            <th scope="col">OstatakVrijednosti</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            i = i + 1;
+            <tr>
+                <th scope="row">@i.</th>
+                <td>
+                    <a href="#" id="@("Edit_" + item.IDUgovora)">Edit</a>
+                </td>
+                <td>@item.NazivUgovora</td>
+                <td>@item.BrojUgovora</td>
+                <td>@item.StatusUgovora</td>
+                <td>@item.IDUgovora</td>
+                <td>@item.DatumUgovora</td>
+                <td>@item.IznosUgovoraHRK.ToString("0.00")</td>
+                <td>@item.IznosUgovoraVAL.ToString("0.00")</td>
+                <td>@item.TecajUgovora.ToString("0.00")</td>
+                <td>@item.VremPeriodMj</td>
+                <td>@item.Ucesce.ToString("0.00")</td>
+                <td>@item.Akontacija.ToString("0.00")</td>
+                <td>@item.Jamcevina.ToString("0.00")</td>
+                <td>@item.FrontUpAdminFee.ToString("0.00")</td>
+                <td>@item.OstatakVrijednosti.ToString("0.00")</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<h1>@ViewBag.Oib</h1>
+@ViewBag.Ugovori
+<script>
+    /*****************ajax**homecontroller***log****************** url: '/Postavke/SetParams',*********/
+    $(document).ready(function () {
+        $("a[id^='Edit_']").click(function () {
+            var menu = $(this).attr('id').split('_')[1];
+            alert(menu);
+            // document.getElementById("someDiv").innerText = menu;
+            //$.ajax({
+            //    url: '/Home/GetPartialviewEdit/' + menu,
+            //    type: 'POST',
+            //    contentType: 'application/html',
+            //    //data: JSON.stringify(model),
+            //    success: function (content) {
+            //        $('#divPartialViewContainer').html(content);
+            //    },
+            //    error: function (e) { }
+            //});
+        });
+
+    });
+/***********validLog**************************************/
+</script>

@@ -1,0 +1,98 @@
+﻿@model List<System.Security.Claims.Claim>
+<p id="tempdatapartial" hidden>@ViewBag.Poruka</p>
+
+<br />
+
+<div class="input-group">
+    <input name="claimType" id="claimType" class="form-control w-25" placeholder="Claim Type">
+    <input name="claimValue" id="claimValue" class="form-control w-25" placeholder="Claim Value">
+    <span class="input-group-btn">
+        <button class="btn btn-info" onclick="InsertClaim()">Create new Claim</button>
+    </span>
+</div>
+
+<br />
+<div class="table-responsive text-wrap">
+    <table>
+        <tr>
+            <th class="text-wrap">ValueType</th>
+            <th class="text-wrap">OriginalIssuer</th>
+            <th class="text-wrap">Issuer</th>
+            <th class="text-wrap">Tip</th>
+            <th class="text-wrap">Vrijednost</th>
+
+        </tr>
+
+
+        @foreach (var claim in Model.OrderBy(x => x.Type))
+        {
+            <tr>
+                <td class="text-wrap">@claim.ValueType</td>
+                <td class="text-wrap">@claim.OriginalIssuer</td>
+                <td class="text-wrap">@claim.Issuer</td>
+                <td class="text-wrap">@claim.Type</td>
+                <td class="text-wrap">@claim.Value</td>
+            </tr>
+        }
+
+    </table>
+</div>
+<style>
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        border: 1px solid black;
+        table-layout: fixed;
+        text-align: center;
+    }
+
+    th {
+        text-align: left;
+        border-bottom: 1pt solid #4C4C4C;
+        border-right: 1pt solid #4C4C4C;
+        padding: 8px;
+        width: 20%;
+        text-align: center;
+        word-wrap: break-word;
+        text-align: center;
+    }
+
+    td {
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        width: 100%;
+        border: 1px solid #000000;
+        word-wrap: break-word;
+        text-align: left;
+    }
+</style>
+<script>
+    function InsertClaim() {
+        var idUser = $("#ddl1").val();
+        var claimType = document.getElementById("claimType").value;
+        var claimValue = document.getElementById("claimValue").value;
+
+        if (claimType.value != '' && claimValue != '') {
+
+            $.ajax({
+                url: '/AddUser/Create/',
+                //  type: 'POST',
+                contentType: 'application/html',
+                data: { 'claimType': claimType, 'claimValue': claimValue, 'id': idUser },
+                success: function (data) {
+                    if (data[0] == 'True') {
+                        document.getElementById('claimType').value = "";
+                        document.getElementById('claimValue').value = ""; 
+                        SelectedIndexChanged();
+                    }                 
+                },
+                error: function (e) { }
+            });
+        }
+        else {
+            console.log();
+        }
+    }
+
+</script>

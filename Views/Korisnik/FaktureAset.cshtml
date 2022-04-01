@@ -1,0 +1,170 @@
+﻿@model List<MVCappCoreWeb.Models.Ugovori>
+@using Microsoft.AspNetCore.Identity
+@using MVCappCoreWeb.Areas.Identity.Data;
+@using Microsoft.AspNetCore.Http;
+
+@inject SignInManager<WebUser> SignInManager
+@inject UserManager<WebUser> UserManager
+@inject RoleManager<IdentityRole> RoleManager
+
+
+<table class="table table-striped" id="roleTable">
+    <tr>
+        <td colspan="2">
+
+            <div class="btn-group  d-flex">
+                @if (SignInManager.IsSignedIn(User))
+                {
+                    @if (User.IsInRole("KorisnikFakture"))
+                    {
+                        <a class="btn alert-dark text-secondary text-center font-weight-bold" asp-controller="korisnik" asp-action="Fakture"
+                           asp-route-id="@ViewBag.IdUgovor">Fakture</a>
+                    }
+
+                    @if (User.IsInRole("KorisnikAsset"))
+                    {
+                        <a class="btn btn-primary text-center font-weight-bold" id="aset" asp-controller="korisnik" asp-action="Aset"
+                          asp-route-id="@ViewBag.IdUgovor">Popis opreme</a>
+                    }
+                }
+            </div>
+        </td>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+
+
+        <tr>
+            <th width="30%">
+                Naziv ugovora:
+            </th>
+
+
+            <td class="float-left">
+                @item.NazivUgovora
+            </td>
+        </tr>
+        <tr>
+            <th>
+                Broj Ugovora:
+            </th>
+
+
+            <td>
+                @item.BrojUgovora
+            </td>
+        </tr>
+        <tr>
+            <th>
+                Status Ugovora:
+            </th>
+
+
+            <td>
+                @item.StatusUgovora
+            </td>
+        </tr>
+        <tr>
+            <th>
+                ID Ugovora:
+            </th>
+
+
+            <td>
+                @item.IDUgovora
+            </td>
+        </tr>
+        <tr>
+            <th>
+                Datum:
+            </th>
+
+
+            <td>
+                @item.DatumUgovora.ToString("dd.MM.yyyy")
+            </td>
+        </tr>
+        <tr>
+            <th>
+                Iznos(HRK):
+            </th>
+
+
+            <td>
+                @item.IznosUgovoraHRK.ToString("N2")
+            </td>
+        </tr>
+        <tr>
+            <th>
+                Iznos(VAL):
+            </th>
+
+
+            <td>
+                @item.IznosUgovoraVAL.ToString("N2")
+            </td>
+        </tr>
+        <tr>
+            <th>
+                Tečaj:
+            </th>
+
+
+            <td>
+                @item.TecajUgovora.ToString("N2")
+            </td>
+        </tr>
+        <tr>
+            <th>
+                Vrem. Period(Mj):
+            </th>
+
+
+            <td>
+                @item.VremPeriodMj
+            </td>
+        </tr>
+        <tr>
+            <th>
+                Učešće:
+            </th>
+
+
+            <td>
+                @item.Ucesce.ToString("N2")
+            </td>
+        </tr>
+        <tr>
+            <th>
+                Akontacija:
+            </th>
+
+
+            <td>
+                @item.Akontacija.ToString("N2")
+            </td>
+        </tr>
+        <tr>
+            <th>
+                Jamčevina:
+            </th>
+
+
+            <td>
+                @item.Jamcevina.ToString("N2")
+            </td>
+        </tr>
+        <tr>
+            <th>
+                Trošak obrade(%):
+            </th>
+
+
+            <td>
+                @item.FrontUpAdminFee.ToString("N2")
+            </td>
+        </tr>
+
+    }
+</table>
