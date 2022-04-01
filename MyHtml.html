@@ -1,0 +1,23 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+	    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+<body>
+<script>
+    gettAsyncPOst();
+  async  function gettAsyncPOst() {
+        
+      var url = ´https://192.168.5.205:8082/api/klijenti´;
+      var header = { "Content-Type": "multipart/form-data", 'Origin': '*', 'Access-Control-Request-Method': 'GET', 'Access-Control-Allow-Headers': 'X-Requested-With'};
+      var options = { method: 'GET', credentials: "same-origin", headers: header };
+        const response = await fetch(url);
+  
+
+    }
+  
+</script>
+</body>
+</html>
